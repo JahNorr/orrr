@@ -1,0 +1,10 @@
+Package: orrr
+Type: Package
+Title: Various Functions
+Version: 0.1.0
+Author: John Orr
+Maintainer: John Orr <john.orr@doh.vi.gov>
+Description: Convenience funtions
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 5.0.1
