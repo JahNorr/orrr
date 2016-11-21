@@ -4,7 +4,7 @@
 \alias{dir.project}
 \title{Project Directory}
 \usage{
-dir.project()
+dir.project(slash = F)
 }
 \value{
 character - name of trhe project directory/folder
