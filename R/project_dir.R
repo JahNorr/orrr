@@ -64,3 +64,29 @@ dir.project.exists<-function(names, create=F) {
   exists
 }
 
+#' Create Project Directory
+#'
+#'  Returns whether or not the folder was created
+#'
+#' @param names character vector of folder names in a branch
+#'
+#' @return character - path, or empty string if not successful
+#' @export
+#'
+#' @examples
+#' dir.project.create("data")
+#'
+
+dir.project.create<-function(names) {
+  path<-orrr::dir.project(names)
+  exists<-dir.exists(path)
+
+  if(!exists) {
+    success<-dir.create(path,recursive = T)
+  } else {
+    success<-T
+  }
+
+  if (success) return (path) else return ("")
+}
+
