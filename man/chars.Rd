@@ -2,7 +2,7 @@
 % Please edit documentation in R/char_utils.R
 \name{chars}
 \alias{chars}
-\title{Title}
+\title{chars}
 \usage{
 chars(chr, n)
 }
@@ -10,6 +10,5 @@ chars(chr, n)
 \item{n}{}
 }
 \description{
-Title
+chars
 }
-

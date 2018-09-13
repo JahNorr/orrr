@@ -2,7 +2,7 @@
 % Please edit documentation in R/char_utils.R
 \name{center_string}
 \alias{center_string}
-\title{Title}
+\title{Center a string in a string with a given length by padding the ends}
 \usage{
 center_string(x, len_out, ctr_char)
 }
@@ -10,6 +10,5 @@ center_string(x, len_out, ctr_char)
 \item{ctr_char}{}
 }
 \description{
-Title
+Center a string in a string with a given length by padding the ends
 }
-

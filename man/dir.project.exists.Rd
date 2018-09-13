@@ -21,4 +21,3 @@ Returns whether or not the folder exists, and optionally creates the path (recur
 dir.project.exists("data")
 
 }
-

@@ -7,4 +7,4 @@ Maintainer: John Orr <john.orr@doh.vi.gov>
 Description: Convenience funtions
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

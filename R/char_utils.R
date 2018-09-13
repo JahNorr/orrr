@@ -6,7 +6,7 @@
 ##
 #########################################################################################################
 
-#' Title
+#' Center a string in a string with a given length by padding the ends
 #'
 #' @param x
 #' @param len_out
@@ -15,7 +15,6 @@
 #' @return
 #' @export
 #'
-#' @examples
 center_string<-function(x,len_out,ctr_char) {
   if(missing(len_out)) len_out<-nchar(x)
   x<-trimws(x)
@@ -41,7 +40,7 @@ center_string<-function(x,len_out,ctr_char) {
   ret
 }
 
-#' Title
+#' chars
 #'
 #' @param chr
 #' @param n
@@ -49,19 +48,17 @@ center_string<-function(x,len_out,ctr_char) {
 #' @return
 #' @export
 #'
-#' @examples
 chars<-function(chr,n) {
   paste(rep(x=chr,times=n),sep="",collapse="")
 }
 
-#' Title
+#' newlines
 #'
 #' @param n
 #'
 #' @return
 #' @export
 #'
-#' @examples
 newlines<-function(n) {
   chars(chr="\n",n=n)
 }
@@ -74,7 +71,6 @@ newlines<-function(n) {
 #' @return
 #' @export
 #'
-#' @examples
 spaces<-function(n) {
   chars(chr=" ",n=n)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/char_utils.R
 \name{newlines}
 \alias{newlines}
-\title{Title}
+\title{newlines}
 \usage{
 newlines(n)
 }
@@ -10,6 +10,5 @@ newlines(n)
 \item{n}{}
 }
 \description{
-Title
+newlines
 }
-
