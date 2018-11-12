@@ -8,3 +8,4 @@ Description: Convenience funtions
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 6.0.1
+Depends:  stringr
