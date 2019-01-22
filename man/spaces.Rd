@@ -2,13 +2,13 @@
 % Please edit documentation in R/char_utils.R
 \name{spaces}
 \alias{spaces}
-\title{Title}
+\title{Repeat spaces}
 \usage{
 spaces(n)
 }
 \arguments{
-\item{n}{}
+\item{n}{- integer: number of times to repeat}
 }
 \description{
-Title
+Repeat spaces
 }

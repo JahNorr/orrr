@@ -2,13 +2,20 @@
 % Please edit documentation in R/char_utils.R
 \name{center_string}
 \alias{center_string}
-\title{Center a string in a string with a given length by padding the ends}
+\title{Center a string in a string with a given length by padding both ends with spaces}
 \usage{
 center_string(x, len_out, ctr_char)
 }
 \arguments{
-\item{ctr_char}{}
+\item{x}{- input string}
+
+\item{len_out}{- total length of output string}
+
+\item{ctr_char}{- char - character to center on}
+}
+\value{
+character - a padded string
 }
 \description{
-Center a string in a string with a given length by padding the ends
+Center a string in a string with a given length by padding both ends with spaces
 }

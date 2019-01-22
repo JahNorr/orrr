@@ -2,13 +2,13 @@
 % Please edit documentation in R/char_utils.R
 \name{newlines}
 \alias{newlines}
-\title{newlines}
+\title{Repeat newlines}
 \usage{
 newlines(n)
 }
 \arguments{
-\item{n}{}
+\item{n}{- integer: number of times to repeat}
 }
 \description{
-newlines
+Repeat newlines
 }

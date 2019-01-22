@@ -6,13 +6,13 @@
 ##
 #########################################################################################################
 
-#' Center a string in a string with a given length by padding the ends
+#' Center a string in a string with a given length by padding both ends with spaces
 #'
-#' @param x
-#' @param len_out
-#' @param ctr_char
+#' @param x - input string
+#' @param len_out - total length of output string
+#' @param ctr_char - char - character to center on
 #'
-#' @return
+#' @return character - a padded string
 #' @export
 #'
 center_string<-function(x,len_out,ctr_char) {
@@ -28,6 +28,7 @@ center_string<-function(x,len_out,ctr_char) {
       spc1<-as.integer((len_out-len_in)/2)
       spc2<-len_out-len_in-spc1
     } else {
+      browser()
       pos = regexpr(ctr_char,x)
       if(pos>0) {
         spc1<-as.integer(len_out/2) - pos
@@ -40,39 +41,28 @@ center_string<-function(x,len_out,ctr_char) {
   ret
 }
 
-#' chars
-#'
-#' @param chr
-#' @param n
-#'
-#' @return
-#' @export
-#'
-chars<-function(chr,n) {
-  paste(rep(x=chr,times=n),sep="",collapse="")
-}
 
-#' newlines
+#' Repeat newlines
 #'
-#' @param n
+#' @param n - integer: number of times to repeat
 #'
 #' @return
 #' @export
 #'
 newlines<-function(n) {
-  chars(chr="\n",n=n)
+  strrep(x = "\n",times = n)
 }
 
 
-#' Title
+#' Repeat spaces
 #'
-#' @param n
+#' @param n - integer: number of times to repeat
 #'
 #' @return
 #' @export
 #'
 spaces<-function(n) {
-  chars(chr=" ",n=n)
+  strrep(x = " ",times = n)
 }
 
 
