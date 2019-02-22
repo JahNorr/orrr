@@ -73,16 +73,23 @@ add_date_cols<-function(df,dt_col,cols) {
   fmt<-c("%Y","%y","%m","%W","%e","%w","%B","%b","%A","%a")
   as_int<-c(T,T,T,T,F,T,F,F,F,F)
 
-  if(missing(cols)) cols<-cols_out
+  if(missing(cols)) {
+    cols<-cols_out
+    nms<-colnames(cols)
+  } else {
+    nms<-names(cols)
+    fix<-nms==""
+    nms[fix]=cols[fix]
+  }
 
   icols<-which(cols_out%in%cols)
-
   sapply(icols,function(index){
-    # browser()
+
+    col_nm<-nms[which(cols_out[index]==cols)]
     if(as_int[index]) {
-      df[,cols_out[index]]<<-as.integer(format(df[,dt_col],fmt[index]))
+      df[,col_nm]<<-as.integer(format(df[,dt_col],fmt[index]))
     } else {
-      df[,cols_out[index]]<<-format(df[,dt_col],fmt[index])
+      df[,col_nm]<<-format(df[,dt_col],fmt[index])
     }
 
   })

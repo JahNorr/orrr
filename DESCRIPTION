@@ -9,3 +9,6 @@ License: GPL-2
 LazyData: TRUE
 RoxygenNote: 6.1.1
 Imports: stringr,RODBC
+RoxygenNote: 6.0.1
+Depends:  stringr
+
