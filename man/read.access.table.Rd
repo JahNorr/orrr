@@ -9,7 +9,7 @@ read.access.table(file, tbl, pwd = "")
 \arguments{
 \item{file}{character path/file name of MS Access database file (.accbd, .mdb)}
 
-\item{tbl}{character Name of the table to fetch}
+\item{tbl}{character Name of the table to fetch - if missing, returns the name of all tables}
 
 \item{pwd}{character Password, default is ""}
 }
