@@ -3,7 +3,7 @@
 #'  Returns a data.frame with the contents of a MS Access table
 #'
 #' @param file character path/file name of MS Access database file (.accbd, .mdb)
-#' @param tbl character Name of the table to fetch
+#' @param tbl character Name of the table to fetch - if missing, returns the name of all tables
 #' @param pwd character Password, default is ""
 #
 #' @return character - path of the project directory/folder
@@ -19,8 +19,25 @@
 #'}
 read.access.table<-function(file,tbl,pwd = "") {
 
+  if(missing(file)) {
+    file<-choose.files(multi = F)
+
+    if(length(file)==0) return(invisible())
+  }
+
   channel <- RODBC::odbcDriverConnect(paste0("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=", file,";pwd=",pwd))
-  df <- RODBC::sqlQuery( channel , paste ("select * from ",tbl))
+
+  if(missing(tbl)) {
+    browser()
+    strDdl = "GRANT SELECT ON MSysObjects TO Everyone;"
+    RODBC::sqlQuery( channel , strDdl)
+    sql<-"SELECT * FROM MSysObjects"
+
+    df <- RODBC::sqlQuery( channel , sql)
+
+  } else {
+    df <- RODBC::sqlQuery( channel , paste0 ("SELECT * FROM ",tbl))
+  }
   RODBC::odbcClose(channel)
   df
 }
