@@ -77,9 +77,14 @@ add_date_cols<-function(df,dt_col,cols) {
     cols<-cols_out
     nms<-colnames(cols)
   } else {
-    nms<-names(cols)
-    fix<-nms==""
-    nms[fix]=cols[fix]
+    if(is.null(names(cols))) {
+      nms<-cols
+    } else {
+
+      nms<-names(cols)
+      fix<-nms==""
+      nms[fix]<-cols[fix]
+    }
   }
 
   icols<-which(cols_out%in%cols)
