@@ -1,12 +1,12 @@
 
 #' returns the lines of a file as a character vector
 #'
-#' @param filename
+#' @param filename - character - name of file to readLoines from
 #'
-#' @return
+#' @return character - the lines of the file minus blank lines
 #' @export
 #'
-#' @examples
+
 
 getLines<-function(filename) {
   conn <- file(filename,open="r")

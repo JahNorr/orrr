@@ -7,7 +7,10 @@
 getLines(filename)
 }
 \arguments{
-\item{filename}{}
+\item{filename}{- character - name of file to readLoines from}
+}
+\value{
+character - the lines of the file minus blank lines
 }
 \description{
 returns the lines of a file as a character vector

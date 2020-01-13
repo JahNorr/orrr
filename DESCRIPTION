@@ -10,4 +10,4 @@ LazyData: TRUE
 RoxygenNote: 6.1.1
 Imports: stringr,RODBC
 Depends:  stringr
-
+Encoding: UTF-8
