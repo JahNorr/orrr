@@ -28,12 +28,8 @@ read.access.table<-function(file,tbl,pwd = "") {
   channel <- RODBC::odbcDriverConnect(paste0("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=", file,";pwd=",pwd))
 
   if(missing(tbl)) {
-    browser()
-    strDdl = "GRANT SELECT ON MSysObjects TO Everyone;"
-    RODBC::sqlQuery( channel , strDdl)
-    sql<-"SELECT * FROM MSysObjects"
 
-    df <- RODBC::sqlQuery( channel , sql)
+    df <- RODBC::sqlTables( channel)
 
   } else {
     df <- RODBC::sqlQuery( channel , paste0 ("SELECT * FROM ",tbl))
