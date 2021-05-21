@@ -101,3 +101,23 @@ add_date_cols<-function(df,dt_col,cols) {
 
   df
 }
+
+#' Convert Excel Date to R Dates
+#'
+#' Applies the correct origin (1899-12-30) to integer Excel dates
+#'
+#' @param dts - a vector of Excel dates (integers)
+#'
+#' @return those integer dates converted to R dates
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' df<-xlsx::read.xlsx(file=fname)
+#' df$DOB<-convert.excel.dates(df$DOB)
+#'
+#' }
+convert.excel.dates<-function(dts) {
+
+  dts<-as.Date(dts,origin="1899-12-30")
+}

@@ -6,8 +6,7 @@
 Fuction to assist with visualizing positions of a string, usually used with long fixed width
 character vectors}
 \usage{
-string_ruler(x, split = 0, under = T, uchar = "-", nl = 0,
-  nlchar = " ")
+string_ruler(x, split = 0, under = T, uchar = "-", nl = 0, nlchar = " ")
 }
 \arguments{
 \item{x}{- character: string to measure}

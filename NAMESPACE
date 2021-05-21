@@ -3,6 +3,8 @@
 export(add_date_cols)
 export(center_string)
 export(chi_square)
+export(colnames.pretty)
+export(convert.excel.dates)
 export(current_age)
 export(dir.project)
 export(dir.project.create)
