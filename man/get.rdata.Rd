@@ -9,10 +9,10 @@ get.rdata(file, item = 1)
 \arguments{
 \item{file}{- character name of file}
 
-\item{item}{- integer item to retrieve (default=1)}
+\item{item}{- integer item to retrieve (default=1) or character matching one item (using grep)}
 }
 \value{
-nth item in a .RData file
+requested item in a .RData file
 }
 \description{
 Returns the nth item in a data file

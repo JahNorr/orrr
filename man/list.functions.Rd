@@ -4,7 +4,7 @@
 \alias{list.functions}
 \title{List of Functions}
 \usage{
-list.functions(files, saveto = NULL, verbose = T)
+list.functions(files, saveto = NULL, verbose = TRUE, sorted = TRUE)
 }
 \arguments{
 \item{files}{character - files or folders or a mix; if blank all files and folders in ./code and ./R}
