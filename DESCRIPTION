@@ -9,5 +9,4 @@ License: GPL-2
 LazyData: TRUE
 RoxygenNote: 7.1.2
 Imports: stringr,RODBC
-Depends: stringr
 Encoding: UTF-8

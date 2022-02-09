@@ -7,12 +7,16 @@ this prints a vertical list of column names
   that are quoted and separated by commas
    useful for getting a usable list for copying and pasting}
 \usage{
-colnames.pretty(df, vert = F)
+colnames.pretty(df, quotes = TRUE, vert = F, sep = ",")
 }
 \arguments{
 \item{df}{- a data.frame}
 
+\item{quotes}{- logical - names are quoted?}
+
 \item{vert}{- logical - separate names by a newline?}
+
+\item{sep}{- character - character to separate names by, default = ","}
 }
 \value{
 - nothing

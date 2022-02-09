@@ -90,3 +90,22 @@ dir.project.create<-function(names) {
   if (success) return (path) else return ("")
 }
 
+
+#' Normalize path
+#'
+#'  Returns a vector substituting the project folder for .
+#'
+#' @param names character vector of path name
+#'
+#' @return character - path, or empty string if not successful
+#' @export
+#'
+#' @examples
+#' convert.dot("./data")
+#'
+convert.dot<-function(path) {
+  dir<- orrr::dir.project(slash = F)
+
+  gsub("^[.]",dir,path)
+
+}

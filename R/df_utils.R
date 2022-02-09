@@ -13,7 +13,9 @@
 #'    useful for getting a usable list for copying and pasting
 #'
 #' @param df - a data.frame
+#' @param quotes - logical - names are quoted?
 #' @param vert - logical - separate names by a newline?
+#' @param sep - character - character to separate names by, default = ","
 #'
 #' @return - nothing
 #' @export
@@ -22,12 +24,14 @@
 #' colnames.pretty(mtcars)
 #' colnames.pretty(mtcars,vert=TRUE)
 #'
-colnames.pretty<-function(df,vert=F) {
+colnames.pretty<-function(df,quotes=TRUE,vert=F, sep=",") {
 
   cnames<-colnames(df)
   if(vert) vchar<-"\n" else vchar<-""
-  x<-paste0(cnames,collapse = paste0("\",",vchar,"\""))
-  x<-paste0("\"",x,"\"")
+  if(quotes) qchar<-"\"" else qchar<-""
+
+  x<-paste0(cnames,collapse = paste0(qchar,sep,vchar,qchar))
+  x<-paste0(qchar,x,qchar)
 
   cat(x)
 }
