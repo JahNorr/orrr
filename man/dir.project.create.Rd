@@ -16,6 +16,7 @@ character - path, or empty string if not successful
 Returns whether or not the folder was created
 }
 \examples{
+\dontrun{
 dir.project.create("data")
-
+}
 }

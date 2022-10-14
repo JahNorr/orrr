@@ -88,3 +88,44 @@ parse_name<-function(name,hyphen=F) {
 
   dxl
 }
+
+
+#' Parse and Split Suffix from Last Name
+#'
+#' @param df data.frame: containing a last name column
+#' @param ln_col character: column name containing last name
+#' @param sfx_col character: column name to contain suffix
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' df <- data.frame(ln = c("JONES","WILLIAM III","RAFERTY SMITH","O CONNELL","HANSEN JR"),
+#'                  fn = c("TOM","CLARENCE","RAFFIE","DONAL","CHUCKY"))
+#' df %>% parse_suffix(ln_col = "ln")
+#'
+#'
+parse_suffix <- function(df, ln_col, sfx_col = "suffix") {
+
+  sfx_tst <- c("JR", "SR", "III", "IV", "V", "VI", "VII", "VIII")
+  sfx_pat <- paste0(" (",paste0(sfx_tst,collapse = "|"),")")
+
+  df_ln <- df %>% select({{ln_col}}) %>%
+    rename(ln = 1) %>%
+    mutate(ln = toupper(ln))
+
+  df_ln <- df_ln  %>%
+    mutate(has_blank = grepl("^[A-Z].* [A-Z]*",ln))  %>%
+    mutate(end =gsub(".* (.*)","\\1",ln)) %>%
+    mutate(has_sfx = end %in% sfx_tst ) %>%
+    mutate(sfx = ifelse(has_sfx, end,"")) %>%
+    mutate(new_ln = ifelse(has_sfx, gsub(sfx_pat,"",ln),ln))
+
+  df %>%
+    mutate({{ln_col}} := stringr::str_trim(df_ln %>% pull(new_ln))) %>%
+    mutate({{sfx_col}} := df_ln %>% pull(sfx))
+
+
+}
+

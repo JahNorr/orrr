@@ -16,6 +16,7 @@ character - vector of names of items in a .RData file
 Returns the names of items in a data file
 }
 \examples{
-dir.project()
-
+\dontrun{
+list.rdata("./data/mydata.rda")
+}
 }

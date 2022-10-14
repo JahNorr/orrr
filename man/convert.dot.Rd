@@ -16,6 +16,8 @@ character - path, or empty string if not successful
 Returns a vector substituting the project folder for .
 }
 \examples{
+\dontrun{
 convert.dot("./data")
+}
 
 }

@@ -56,7 +56,7 @@ current_age<-function(dob) {
 #' Add columns to a data frame with information extracted from the indicated date column
 #'
 #' @param df data frame that has the date column
-#' @param dt_col name of the column with the date of interest
+#' @param dt_col name of the column with the dates of interest
 #' @param cols columns to add, currently "year","yr","month","week","day", "weekday","month_name","month_abb","weekday_name","weekday_abb"
 #'
 #' @return same data frame with added columns
@@ -68,6 +68,12 @@ current_age<-function(dob) {
 #' add_date_cols(df,"date")
 #'
 add_date_cols<-function(df,dt_col,cols) {
+
+  require(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+
+  dates <- df %>% pull({{dt_col}})
+
+  if(is.character(dates)) dates <- as.Date(dates)
 
   cols_out<-c("year","yr","month","week","day", "weekday","month_name","month_abb","weekday_name","weekday_abb")
   fmt<-c("%Y","%y","%m","%W","%e","%w","%B","%b","%A","%a")
@@ -91,10 +97,11 @@ add_date_cols<-function(df,dt_col,cols) {
   sapply(icols,function(index){
 
     col_nm<-nms[which(cols_out[index]==cols)]
+    browser()
     if(as_int[index]) {
-      df[,col_nm]<<-as.integer(format(df[,dt_col],fmt[index]))
+      df[,col_nm]<<-as.integer(format(dates,fmt[index]))
     } else {
-      df[,col_nm]<<-format(df[,dt_col],fmt[index])
+      df[,col_nm]<<-format(dates,fmt[index])
     }
 
   })
@@ -119,5 +126,6 @@ add_date_cols<-function(df,dt_col,cols) {
 #' }
 convert.excel.dates<-function(dts) {
 
-  dts<-as.Date(dts,origin="1899-12-30")
+  as.Date(dts,origin="1899-12-30")
 }
+

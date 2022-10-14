@@ -1,6 +1,35 @@
 
 
+handle_funcs<-function(folder,file,funcs,sub=NULL,sorted=TRUE, new_fldr = TRUE) {
 
+  if(sorted) funcs<-sort(funcs)
+
+  #new_fldr<-fldr!=folder
+  new_file<-TRUE #file!=file_old
+
+  if(new_fldr) {
+    cat("=================================================================================\n")
+    cat(folder,"\n")
+  }
+
+  if(new_file) {
+    if(!new_fldr) cat("---------------------------------------------------------\n")
+    cat("\t",file,"\n")
+  }
+
+
+  if(!is.null(sub))   {
+    cat(paste0("\t\t",sub,"\n"))
+  }
+
+  cat(paste0("\t\t\t",funcs,"\n"))
+
+  file_old<<-file
+  #fldr<<-folder
+}
+
+##    end of handle_funcs function
+###############################################################
 
 #' List of Functions
 #'
@@ -16,47 +45,18 @@
 #'
 list.functions<-function(files,saveto=NULL,verbose=TRUE, sorted=TRUE) {
 
-  handle_funcs<-function(folder,file,funcs,sub=NULL,sorted=TRUE) {
-
-    if(sorted) funcs<-sort(funcs)
-
-    new_fldr<-fldr!=folder
-    new_file<-file!=file_old
-
-    if(new_fldr) {
-      cat("=================================================================================\n")
-      cat(folder,"\n")
-    }
-
-    if(new_file) {
-      if(!new_fldr) cat("---------------------------------------------------------\n")
-      cat("\t",file,"\n")
-    }
-
-
-    if(!is.null(sub))   {
-      cat(paste0("\t\t",sub,"\n"))
-    }
-
-    cat(paste0("\t\t\t",funcs,"\n"))
-
-    file_old<<-file
-    fldr<<-folder
-  }
-
-  ##    end of handle_funcs function
-  ###############################################################
   if(!is.null(saveto)) {
     sink(saveto)
     verbose<-TRUE
   }
+
   if(missing(files)){
     folders<-c("./code","./R")
-    files<-dir(folders,recursive = T,full.names = T,pattern = "*[.]R")
+    files<-dir(folders,recursive = T,full.names = T,pattern = ".*[.]R")
   } else {
     folders<-files[dir.exists(files)]
     files<-files[!dir.exists(files)]
-    files<-c(files,dir(folders,recursive = T,full.names = T,pattern = "*[.]R"))
+    files<-c(files,dir(folders,recursive = T,full.names = T,pattern = ".*[.]R"))
   }
 
   folders<-gsub("(.*/).*","\\1",files)
@@ -136,7 +136,9 @@ list.functions<-function(files,saveto=NULL,verbose=TRUE, sorted=TRUE) {
     } else {
       if(length(funcs)>0) {
         df<<-rbind(df,data.frame(folder=folder,file=file,func=funcs))
-        handle_funcs(folder = folder,file = file,funcs = funcs,sorted = sorted)
+        #browser()
+        handle_funcs(folder = folder,file = file,funcs = funcs,sorted = sorted, new_fldr = fldr != folder)
+        fldr <<- folder
       }
     }
 

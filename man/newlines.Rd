@@ -9,9 +9,6 @@ newlines(n)
 \arguments{
 \item{n}{- integer: number of times to repeat}
 }
-\value{
-
-}
 \description{
 Repeat newlines
 }

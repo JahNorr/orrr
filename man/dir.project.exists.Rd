@@ -18,6 +18,7 @@ logical - does the folder exist
 Returns whether or not the folder exists, and optionally creates the path (recursively) if missing
 }
 \examples{
+\dontrun{
 dir.project.exists("data")
-
+}
 }

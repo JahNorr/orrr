@@ -7,7 +7,8 @@
 dir.project(names, slash = T)
 }
 \arguments{
-\item{names}{character vector of folder names in a branch. if missing will return project root folder}
+\item{names}{character vector of folder names in a branch. If missing, this function
+will return project root folder}
 
 \item{slash}{logical append slash at end of path. Default is TRUE.}
 }
@@ -15,9 +16,11 @@ dir.project(names, slash = T)
 character - path of the project directory/folder
 }
 \description{
-Returns the name of the project directory by stepping out from the working directory until a *.Rproj file is found
+Returns the path of the project directory and adds and other folders passed
+ as the names argument
 }
 \examples{
+\dontrun{
 dir.project()
 
 dir.project("data")
@@ -25,6 +28,6 @@ dir.project("data")
 # following are equivalent
 dir.project("data/excel/csv")
 dir.project(c("data","excel","csv"))
-
+}
 
 }

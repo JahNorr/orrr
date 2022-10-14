@@ -42,10 +42,12 @@ getLines<-function(filename) {
 
 source_lib<-function(libname, proj_path = orrr::dir.project(), lib_path = "code/libs/",prefix="lib_", verbose=FALSE) {
 
-  file<-paste0(proj_path, libpath,prefix,libname,".R")
+  if(!grepl("/$",proj_path)) proj_path <- paste0(proj_path,"/")
+
+  file<-paste0(proj_path, lib_path,prefix,libname,".R")
 
   if(! file.exists(file)){
-    warning(paste0("The file you are trying to source (",filename,") does not exist"))
+    warning(paste0("The file you are trying to source (",file,") does not exist"))
   } else {
     if(verbose) cat(paste0("[",file,"]","\n"))
     source(file)

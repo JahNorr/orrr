@@ -4,12 +4,14 @@
 \alias{get.rdata}
 \title{Get Data file item}
 \usage{
-get.rdata(file, item = 1)
+get.rdata(file, item = 1, warn = FALSE)
 }
 \arguments{
 \item{file}{- character name of file}
 
 \item{item}{- integer item to retrieve (default=1) or character matching one item (using grep)}
+
+\item{warn}{- boolean warn on missing file}
 }
 \value{
 requested item in a .RData file
@@ -18,6 +20,7 @@ requested item in a .RData file
 Returns the nth item in a data file
 }
 \examples{
-dir.project()
-
+\dontrun{
+df <- get.rdata("./data/mydata.rda")
+}
 }

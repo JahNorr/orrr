@@ -2,15 +2,18 @@
 
 #' Project Directory
 #'
-#'  Returns the name of the project directory by stepping out from the working directory until a *.Rproj file is found
+#'  Returns the path of the project directory and adds and other folders passed
+#'  as the names argument
 #'
-#' @param names character vector of folder names in a branch. if missing will return project root folder
+#' @param names character vector of folder names in a branch. If missing, this function
+#' will return project root folder
 #' @param slash logical append slash at end of path. Default is TRUE.
 #
 #' @return character - path of the project directory/folder
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' dir.project()
 #'
 #' dir.project("data")
@@ -18,22 +21,45 @@
 #' # following are equivalent
 #' dir.project("data/excel/csv")
 #' dir.project(c("data","excel","csv"))
-#'
+#'}
 #'
 dir.project<-function(names,slash=T) {
-  wd<-getwd()
-  #
-  files<-list.files(wd)
-  ynp<-grep("\\.Rproj$",files)
-  while(length(ynp)==0 && (!any(grep("^[A-Z]:/$",wd)))) {
-    wd<-dirname(wd)
+
+  #############################################################
+  ##
+  ##   never found this function when looking years ago
+  ##    ... the wd in shiny and markdown files was not the
+  ##      base project folder so I found it my own way
+  ##      but this rstudioapi function does it
+
+  if (TRUE) {
+    wd <- rstudioapi::getActiveProject()
+
+  } else {
+    #############################################################
+    ##
+    ##    i guess the below was unnecessary for so many years
+
+    wd<-getwd()
     #
     files<-list.files(wd)
     ynp<-grep("\\.Rproj$",files)
+    while(length(ynp)==0 && (!any(grep("^[A-Z]:/$",wd)))) {
+      wd<-dirname(wd)
+      #
+      files<-list.files(wd)
+      ynp<-grep("\\.Rproj$",files)
+    }
+
   }
+
+  ####################################################
+  ##
+  ##    add rest of path indicated in arguments
+
   if(!missing(names)) {
-  file_list<-paste(names,collapse="/")
-  wd<-paste0(wd,"/",file_list)
+    file_list<-paste(names,collapse="/")
+    wd<-paste0(wd,"/",file_list)
   }
   if(slash) wd<-paste(wd,"/",sep="")
   wd
@@ -49,8 +75,9 @@ dir.project<-function(names,slash=T) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' dir.project.exists("data")
-#'
+#'}
 
 dir.project.exists<-function(names, create=F) {
   path<-orrr::dir.project(names)
@@ -74,8 +101,9 @@ dir.project.exists<-function(names, create=F) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' dir.project.create("data")
-#'
+#'}
 
 dir.project.create<-function(names) {
   path<-orrr::dir.project(names)
@@ -101,7 +129,9 @@ dir.project.create<-function(names) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' convert.dot("./data")
+#' }
 #'
 convert.dot<-function(path) {
   dir<- orrr::dir.project(slash = F)

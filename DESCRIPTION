@@ -7,6 +7,11 @@ Maintainer: John Orr <john.orr@doh.vi.gov>
 Description: Convenience funtions
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 7.1.2
-Imports: stringr,RODBC
+RoxygenNote: 7.2.1
+Imports: stringr, 
+         RODBC, 
+         rstudioapi,
+         dplyr
 Encoding: UTF-8
+Depends: 
+    R (>= 2.10)

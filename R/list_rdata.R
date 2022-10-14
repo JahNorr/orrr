@@ -8,8 +8,9 @@
 #' @export
 #'
 #' @examples
-#' dir.project()
-#'
+#'\dontrun{
+#' list.rdata("./data/mydata.rda")
+#'}
 
 list.rdata<-function(file){
   e<-new.env()
@@ -25,15 +26,24 @@ list.rdata<-function(file){
 #'
 #' @param file - character name of file
 #' @param item - integer item to retrieve (default=1) or character matching one item (using grep)
+#' @param warn - boolean warn on missing file
 #' @return requested item in a .RData file
 #' @export
 #'
 #' @examples
-#' dir.project()
-#'
+#'\dontrun{
+#' df <- get.rdata("./data/mydata.rda")
+#'}
 
+get.rdata<-function(file,item=1, warn = FALSE){
 
-get.rdata<-function(file,item=1){
+  if(!file.exists(file)) {
+
+    if(warn) warning("File does not exist.")
+    return(NULL)
+
+  }
+
   e<-new.env()
 
   load(file = file,envir = e)

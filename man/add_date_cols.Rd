@@ -9,7 +9,7 @@ add_date_cols(df, dt_col, cols)
 \arguments{
 \item{df}{data frame that has the date column}
 
-\item{dt_col}{name of the column with the date of interest}
+\item{dt_col}{name of the column with the dates of interest}
 
 \item{cols}{columns to add, currently "year","yr","month","week","day", "weekday","month_name","month_abb","weekday_name","weekday_abb"}
 }
