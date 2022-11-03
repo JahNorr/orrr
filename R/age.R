@@ -21,25 +21,31 @@
 add_age_intervals <- function(df, breaks=NULL, age_col = "Age", group_col = "AgeGroup",
                               under = "Younger than ",
                               bridge = " to ",
-                              over = " or Older") {
+                              over = " or Older",  keep_attrs = FALSE) {
 
   if(!is.null(breaks)) {
-    group  <-  df %>% pull(!!age_col) %>% cut(breaks = breaks, right = FALSE)
+    ages <- df %>% pull(!!age_col)
+    group  <-   ages %>% cut(breaks = breaks, right = FALSE)
 
-    #group <- df[[age_group]]
-
-    group  <-  gsub(","," - ", group) %>%
+    lvls <- levels(group)
+    lvls <- gsub(","," - ", lvls) %>%
       gsub("\\(|\\[|\\]|\\)","", .)
 
-    age0  <-  as.integer(gsub("(.*)-.*","\\1",group))
-    age1  <-  as.integer(gsub("(.*)-(.*)","\\2",group))-1
+    age0  <-  as.integer(gsub("(.*)-.*","\\1",lvls))
+    age1  <-  as.integer(gsub("(.*)-(.*)","\\2",lvls))-1
 
     age <-  ifelse(age0 == 0, paste0(under,  age1+1),paste0(age0, bridge, age1))
     age <-  ifelse(age1 > 120, paste0( age0, over),age)
     age <-  ifelse(age0 == age1 & age0 != 0, as.character(age0) , age)
 
-    df <- df %>% mutate({{group_col}} := age)
+    levels(group) <- age
 
+    if(keep_attrs) {
+      attributes(group) <- c(attributes(group),attributes(ages))
+    }
+
+    df <- df %>% mutate({{group_col}} := group)
+    #attributes(df[[group_col]]) <- attribs
   }
 
   df
