@@ -9,8 +9,11 @@ add_age_intervals(
   breaks = NULL,
   age_col = "Age",
   group_col = "AgeGroup",
-  under = "Younger than",
-  over = "or Older"
+  under = "Younger than ",
+  bridge = " to ",
+  over = " or Older",
+  factor_na = NULL,
+  keep_attrs = FALSE
 )
 }
 \arguments{
@@ -24,7 +27,11 @@ add_age_intervals(
 
 \item{under}{- character - text to use for less/younger than}
 
+\item{bridge}{- character - text to use between the min and max}
+
 \item{over}{- character - text to use for greater/older than}
+
+\item{factor_na}{- character - text to use for NA values}
 }
 \value{
 data.frame

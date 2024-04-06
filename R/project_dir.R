@@ -23,16 +23,19 @@
 #' dir.project(c("data","excel","csv"))
 #'}
 #'
-dir.project<-function(names,slash=T) {
+dir.project<-function(names,useapi = TRUE, slash=T) {
 
   #############################################################
   ##
   ##   never found this function when looking years ago
   ##    ... the wd in shiny and markdown files was not the
   ##      base project folder so I found it my own way
-  ##      but this rstudioapi function does it
+  ##      but this rstudioapi function does it ...
+  ##      problem though ... You can't use this package
+  ##      unless you are in an interactive RStudio session.
+  ##      So you get the error ... Error: RStudio not running ... when using Quarto
 
-  if (TRUE) {
+  if (useapi) {
     wd <- rstudioapi::getActiveProject()
 
   } else {

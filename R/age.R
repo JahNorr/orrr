@@ -12,6 +12,7 @@
 #' @param under - character - text to use for less/younger than
 #' @param bridge - character - text to use between the min and max
 #' @param over - character - text to use for greater/older than
+#' @param factor_na - character - text to use for NA values
 #'
 #' @return data.frame
 #' @export
@@ -21,7 +22,9 @@
 add_age_intervals <- function(df, breaks=NULL, age_col = "Age", group_col = "AgeGroup",
                               under = "Younger than ",
                               bridge = " to ",
-                              over = " or Older",  keep_attrs = FALSE) {
+                              over = " or Older",  factor_na = NULL, keep_attrs = FALSE) {
+
+  require(dplyr)
 
   if(!is.null(breaks)) {
     ages <- df %>% pull(!!age_col)
@@ -38,7 +41,9 @@ add_age_intervals <- function(df, breaks=NULL, age_col = "Age", group_col = "Age
     age <-  ifelse(age1 > 120, paste0( age0, over),age)
     age <-  ifelse(age0 == age1 & age0 != 0, as.character(age0) , age)
 
-    levels(group) <- age
+    levels(group) <- c(age, factor_na)
+
+    if(!is.null(factor_na)) group <- replace(group, is.na(group), factor_na)
 
     if(keep_attrs) {
       attributes(group) <- c(attributes(group),attributes(ages))
@@ -46,6 +51,7 @@ add_age_intervals <- function(df, breaks=NULL, age_col = "Age", group_col = "Age
 
     df <- df %>% mutate({{group_col}} := group)
     #attributes(df[[group_col]]) <- attribs
+
   }
 
   df

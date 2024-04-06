@@ -97,7 +97,7 @@ add_date_cols<-function(df,dt_col,cols) {
   sapply(icols,function(index){
 
     col_nm<-nms[which(cols_out[index]==cols)]
-    browser()
+    #browser()
     if(as_int[index]) {
       df[,col_nm]<<-as.integer(format(dates,fmt[index]))
     } else {

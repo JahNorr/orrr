@@ -4,5 +4,6 @@
 .Ruserdata
 code/
 *.csv
+data-raw/
 data_raw/
 data/

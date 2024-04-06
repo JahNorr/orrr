@@ -4,7 +4,7 @@
 \alias{dir.project}
 \title{Project Directory}
 \usage{
-dir.project(names, slash = T)
+dir.project(names, useapi = TRUE, slash = T)
 }
 \arguments{
 \item{names}{character vector of folder names in a branch. If missing, this function
