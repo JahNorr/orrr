@@ -1,4 +1,7 @@
 
+require(dplyr)
+require(cli)
+
 #' returns the lines of a file as a character vector
 #'
 #' @param filename - character - name of file to readLoines from
@@ -82,7 +85,7 @@ source_lib<-function(libname, proj_path = orrr::dir.project(), lib_path = "code/
 #' search_r_files("foobar")
 #'
 search_r_files <- function(find = NULL, ext = "R") {
-  require(dplyr)
+
 
   r_root <- "~/../r_workspace"
 
@@ -107,15 +110,23 @@ search_r_files <- function(find = NULL, ext = "R") {
     #   cat(fok, sep = "\n")
     # }
 
+    comm <- stringr::str_trim(fok) %>% substring(1,1) %>% {. == "#"}
+    #browser()
+    fok <- fok[!comm]
+
     if(length(fok) > 0) {
       return(c("==============================================================\n",
-               file, "\n", paste0(fok, sep = "\n")))
+               file, "\n",
+               style_italic(
+                 col_red(
+                   paste0(fok, sep = "\n")))))
     } else
       return(NULL)
   })
 
   setwd(wd)
 
-  unname(x) %>% unlist()
+  unname(x) %>% unlist() %>% cat()
 }
+
 
