@@ -84,8 +84,34 @@ source_lib<-function(libname, proj_path = orrr::dir.project(), lib_path = "code/
 #' @examples
 #' search_r_files("foobar")
 #'
-search_r_files <- function(find = NULL, ext = "R") {
+#'
+x <-  7
 
+
+
+#' R File Search
+#'
+#'  Sends formatted text to command line showing results for the search
+#'
+#' @param find - character: text to search for
+#' @param ext - character - extension (default: .R)
+#' @param r_root - root for searching for .R files
+#' @param file_col
+#' @param results_col
+#' @param results_bg
+#' @param ignore_comments - logical - show lines that are comments
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' search_r_files("foobar")
+
+search_r_files <- function(find = NULL, ext = "R", r_root =  "~/../r_workspace",
+                           file_col = "black", results_col = "red", results_bg = "blue",
+                           ignore_comments = TRUE) {
+
+  require(cli)
 
   r_root <- "~/../r_workspace"
 
@@ -105,21 +131,30 @@ search_r_files <- function(find = NULL, ext = "R") {
 
     fok <- grep(find, lines, value = TRUE)
 
-    # if(length(fok) > 0) {
-    #   cat("===================================================\n",file, "\n")
-    #   cat(fok, sep = "\n")
-    # }
-
-    comm <- stringr::str_trim(fok) %>% substring(1,1) %>% {. == "#"}
-    #browser()
-    fok <- fok[!comm]
+    if(ignore_comments) {
+      comm <- stringr::str_trim(fok) %>% substring(1,1) %>% {. == "#"}
+      #browser()
+      fok <- fok[!comm]
+    }
 
     if(length(fok) > 0) {
-      return(c("==============================================================\n",
-               file, "\n",
-               style_italic(
-                 col_red(
-                   paste0(fok, sep = "\n")))))
+      file_txt <- do.call(paste0("col_", file_col), list(file) )
+      file_txt <- do.call(paste0("style_", "bold"), list(file_txt) )
+
+      res_txt <- paste0(fok, sep = "\n")
+      res_txt <- do.call(paste0("col_", results_col), list(res_txt) )
+      res_txt <- do.call(paste0("style_", "italic"), list(res_txt) )
+
+      rep_txt <- do.call(paste0("bg_", results_bg), list(find) )
+      rep_txt <- do.call(paste0("col_", "white"), list(rep_txt) )
+
+      res_txt <- gsub(find, rep_txt,res_txt)
+
+      txt <-  c("==============================================================\n",
+                file_txt, "\n",
+                res_txt)
+
+      return(txt)
     } else
       return(NULL)
   })
