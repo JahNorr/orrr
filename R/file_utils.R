@@ -95,11 +95,12 @@ x <-  7
 #'
 #' @param find - character: text to search for
 #' @param ext - character - extension (default: .R)
-#' @param r_root - root for searching for .R files
-#' @param file_col
-#' @param results_col
-#' @param results_bg
-#' @param ignore_comments - logical - show lines that are comments
+#' @param r_root - character - folder root for searching for .R files
+#' @param file_col - character - filename text color (use #hhhhhh format )
+#' @param results_col - character - results text color (use #hhhhhh format )
+#' @param results_bg - character - results bg color (use #hhhhhh format )
+#' @param ignore_comments - logical - ignore all lines that are comments (start with #)
+#' @param ... - unused
 #'
 #' @return
 #' @export
@@ -107,19 +108,39 @@ x <-  7
 #' @examples
 #' search_r_files("foobar")
 
+
 search_r_files <- function(find = NULL, ext = "R", r_root =  "~/../r_workspace",
-                           file_col = "black", results_col = "red", results_bg = "blue",
-                           ignore_comments = TRUE) {
+                           file_col = "#4444ff", results_col = "red", results_bg = "#f7f7f7",
+                           ignore_comments = TRUE, ...) {
 
   require(cli)
 
-  r_root <- "~/../r_workspace"
+  if(is.null(r_root)) r_root <-  rstudioapi::readRStudioPreference("default_open_project_location", NULL)
+  if(is.null(r_root)) r_root <- paste0("../", here::here())
 
   wd <- getwd()
   setwd(r_root)
 
   files <- list.files(recursive = T) %>%
     grep(paste0("[.]", ext, "$"), ., value = T)
+
+  if(grepl("^#",results_col)) {
+    results_col <- make_ansi_style(results_col)
+  } else {
+    results_col <- paste0("col_", results_col)
+  }
+
+  if(grepl("^#",file_col)) {
+    file_col <- make_ansi_style(file_col)
+  } else {
+    file_col <- paste0("col_", file_col)
+  }
+
+  if(grepl("^#",results_bg)) {
+    results_bg <- make_ansi_style(results_bg, bg = TRUE)
+  } else {
+    results_bg <- paste0("bg_", results_bg)
+  }
 
   found <- NULL
 
@@ -138,18 +159,19 @@ search_r_files <- function(find = NULL, ext = "R", r_root =  "~/../r_workspace",
     }
 
     if(length(fok) > 0) {
-      file_txt <- do.call(paste0("col_", file_col), list(file) )
+      file_txt <- do.call(file_col, list(file) )
       file_txt <- do.call(paste0("style_", "bold"), list(file_txt) )
 
+      #browser()
       res_txt <- paste0(fok, sep = "\n")
-      res_txt <- do.call(paste0("col_", results_col), list(res_txt) )
+      res_txt <- do.call(results_col, list(res_txt) )
       res_txt <- do.call(paste0("style_", "italic"), list(res_txt) )
 
-      rep_txt <- do.call(paste0("bg_", results_bg), list(find) )
-      rep_txt <- do.call(paste0("col_", "white"), list(rep_txt) )
+      rep_txt <- do.call(results_bg, list(find) )
+      #rep_txt <- do.call(paste0("col_", "white"), list(rep_txt) )
 
+      #rep_txt <- find
       res_txt <- gsub(find, rep_txt,res_txt)
-
       txt <-  c("==============================================================\n",
                 file_txt, "\n",
                 res_txt)
@@ -163,5 +185,4 @@ search_r_files <- function(find = NULL, ext = "R", r_root =  "~/../r_workspace",
 
   unname(x) %>% unlist() %>% cat()
 }
-
 

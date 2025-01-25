@@ -4,18 +4,37 @@
 \alias{search_r_files}
 \title{R File Search}
 \usage{
-search_r_files(find = NULL)
+search_r_files(
+  find = NULL,
+  ext = "R",
+  r_root = "~/../r_workspace",
+  file_col = "#4444ff",
+  results_col = "red",
+  results_bg = "#f7f7f7",
+  ignore_comments = TRUE,
+  ...
+)
 }
 \arguments{
 \item{find}{- character: text to search for}
-}
-\value{
-vector of results
+
+\item{ext}{- character - extension (default: .R)}
+
+\item{r_root}{- character - folder root for searching for .R files}
+
+\item{file_col}{- character - filename text color (use #hhhhhh format )}
+
+\item{results_col}{- character - results text color (use #hhhhhh format )}
+
+\item{results_bg}{- character - results bg color (use #hhhhhh format )}
+
+\item{ignore_comments}{- logical - ignore all lines that are comments (start with #)}
+
+\item{...}{- unused}
 }
 \description{
-R File Search
+Sends formatted text to command line showing results for the search
 }
 \examples{
 search_r_files("foobar")
-
 }

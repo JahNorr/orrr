@@ -55,7 +55,7 @@ is.integer_like <- function(x) {
     tryCatch(
       {
         x1 <- as.integer(x)
-        return(TRUE)
+        return(!is.na(x1))
       },
       warning = function(cond) {
         return(FALSE)

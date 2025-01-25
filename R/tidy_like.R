@@ -45,3 +45,27 @@ filter_any <- function(df, ..., patterns, invert = FALSE, fixed = FALSE, ignore.
 
   df %>% filter(found)
 }
+
+
+
+#' Convert column of integers to excel dates
+#'
+#' @param df - data.frame
+#' @param ... - column to convert
+#'
+#' @return
+#' @export
+#'
+#' @examples
+as_excel_dates<-function(df, ...) {
+  quosures <- quos(..., .ignore_empty = "all")
+  quo <- quosures[[1]]
+  nm <- names(quosures[1])
+  expr <- rlang::quo_get_expr(quo)
+  if(nm == "") nm <- expr
+
+  dts <- df %>% pull({{expr}})
+
+  df %>% mutate({{nm}} := get(expr)) %>%
+    mutate({{nm}} := as.Date(as.integer(get(nm)), origin ="1899-12-30"))
+}

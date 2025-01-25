@@ -129,3 +129,18 @@ convert.excel.dates<-function(dts) {
   as.Date(dts,origin="1899-12-30")
 }
 
+
+#' Convert excel integer dates to R dates
+#'
+#' @param dt_col
+#'
+#' @return
+#' @export
+#'
+#' @examples
+as.excel.dates<-function(dt_col) {
+  quosures <- quos(..., .ignore_empty = "all")
+  quo <- quosures[[1]]
+
+  as.Date(dts,origin="1899-12-30")
+}
