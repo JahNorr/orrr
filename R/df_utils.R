@@ -26,7 +26,8 @@
 #' colnames.pretty(mtcars)
 #' colnames.pretty(mtcars,vert=TRUE)
 #'
-colnames.pretty<-function(df,sort = TRUE, quotes = TRUE, vert = FALSE, sep=",", colwid = NULL) {
+colnames.pretty<-function(df,sort = FALSE, quotes = FALSE, vert = FALSE,
+                          sep=", ", colwid = NULL) {
 
   cnames<-colnames(df)
   if(!is.null(colwid)) cnames <- stringr::str_pad(cnames,colwid)
@@ -34,8 +35,8 @@ colnames.pretty<-function(df,sort = TRUE, quotes = TRUE, vert = FALSE, sep=",", 
   if(vert) vchar<-"\n" else vchar<-""
   if(quotes) qchar<-"\"" else qchar<-""
 
-  x<-paste0(cnames,collapse = paste0(qchar,sep,vchar,qchar))
-  x<-paste0(qchar,x,qchar)
+  x<-paste0(cnames,collapse = paste0(qchar,sep,vchar,qchar)) %>%
+    paste0(qchar,.,qchar)
 
   cat(x)
 }

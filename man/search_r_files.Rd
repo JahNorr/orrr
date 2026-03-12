@@ -10,6 +10,7 @@ search_r_files(
   r_root = "~/../r_workspace",
   file_col = "#4444ff",
   results_col = "red",
+  date_col = "#669977",
   results_bg = "#f7f7f7",
   ignore_comments = TRUE,
   ...
@@ -25,6 +26,8 @@ search_r_files(
 \item{file_col}{- character - filename text color (use #hhhhhh format )}
 
 \item{results_col}{- character - results text color (use #hhhhhh format )}
+
+\item{date_col}{- character - file date text color (use #hhhhhh format )}
 
 \item{results_bg}{- character - results bg color (use #hhhhhh format )}
 
