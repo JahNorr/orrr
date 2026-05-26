@@ -6,9 +6,6 @@
 \usage{
 matching_parens(text)
 }
-\arguments{
-\item{text}{}
-}
 \value{
 data frame with matching pair positions
 }

@@ -7,11 +7,12 @@
 search_r_files(
   find = NULL,
   ext = "R",
-  r_root = "~/../r_workspace",
-  file_col = "#4444ff",
-  results_col = "red",
-  date_col = "#669977",
+  r_root = NULL,
+  file_color = "#4444ff",
+  results_color = "red",
+  date_color = "#669977",
   results_bg = "#f7f7f7",
+  hyph_count = 90,
   ignore_comments = TRUE,
   ...
 )
@@ -23,21 +24,31 @@ search_r_files(
 
 \item{r_root}{- character - folder root for searching for .R files}
 
-\item{file_col}{- character - filename text color (use #hhhhhh format )}
-
-\item{results_col}{- character - results text color (use #hhhhhh format )}
-
-\item{date_col}{- character - file date text color (use #hhhhhh format )}
-
 \item{results_bg}{- character - results bg color (use #hhhhhh format )}
 
 \item{ignore_comments}{- logical - ignore all lines that are comments (start with #)}
 
 \item{...}{- unused}
+
+\item{file_col}{- character - filename text color (use #hhhhhh format )}
+
+\item{results_col}{- character - results text color (use #hhhhhh format )}
+
+\item{date_col}{- character - file date text color (use #hhhhhh format )}
+}
+\value{
+vector of results
 }
 \description{
-Sends formatted text to command line showing results for the search
+R File Search
 }
 \examples{
+search_r_files("foobar")
+
+
+R File Search
+
+ Sends formatted text to command line showing results for the search
+
 search_r_files("foobar")
 }

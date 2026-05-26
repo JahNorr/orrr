@@ -9,10 +9,10 @@ this prints a vertical list of column names
 \usage{
 colnames.pretty(
   df,
-  sort = TRUE,
-  quotes = TRUE,
+  sort = FALSE,
+  quotes = FALSE,
   vert = FALSE,
-  sep = ",",
+  sep = ", ",
   colwid = NULL
 )
 }

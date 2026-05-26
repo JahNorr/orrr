@@ -6,9 +6,6 @@
 \usage{
 as.excel.dates(dt_col)
 }
-\arguments{
-\item{dt_col}{}
-}
 \description{
 Convert excel integer dates to R dates
 }

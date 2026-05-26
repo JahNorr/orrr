@@ -13,9 +13,6 @@ ft_to_xlsx(
   append = FALSE
 )
 }
-\arguments{
-\item{append}{}
-}
 \description{
 Convert a flextable object to an xlsx file
 }

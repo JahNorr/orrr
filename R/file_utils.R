@@ -82,9 +82,6 @@ source_lib<-function(libname, proj_path = orrr::dir.project(), lib_path = "code/
 #' search_r_files("foobar")
 #'
 #'
-x <-  7
-
-
 
 #' R File Search
 #'
@@ -120,8 +117,9 @@ search_r_files <- function(find = NULL, ext = "R", r_root =  NULL,
   wd <- getwd()
   setwd(r_root)
 
-  files <- list.files(recursive = T) %>%
-    grep(paste0("[.]", ext, "$"), ., value = T)
+  files <- list.files(recursive = TRUE) %>%
+    grep(paste0("[.]", ext, "$"), ., value = TRUE) %>%
+    grep("renv/library", ., invert = TRUE, value = TRUE)
 
   if(grepl("^#",results_color)) {
     results_col <- cli::make_ansi_style(results_color)
@@ -155,20 +153,27 @@ search_r_files <- function(find = NULL, ext = "R", r_root =  NULL,
 
     lines <- readLines(file, warn = FALSE)
 
-    fok <- grep(find, lines, value = TRUE)
+    fok <- grep(find, lines)
 
-    if(ignore_comments) {
-      comm <- stringr::str_trim(fok) %>% substring(1,1) %>% {. == "#"}
-      #browser()
-      fok <- fok[!comm]
-    }
 
     if(length(fok) > 0) {
+
+      df_fok <- data.frame(line = fok, fok = stringr::str_trim(lines[fok]))
+
+
+      if(ignore_comments) {
+        df_fok <- df_fok %>% filter(substring(fok, 1,1)!= "#")
+
+
+      }
 
       file_dt <- file.info(file)$mtime %>%
         format("%Y-%m-%d %H:%M %Z" ) %>%
         paste0("[",.,"]")
 
+
+      fok <- df_fok$fok
+      line <- df_fok$line
 
       file_date_txt <- do.call(date_col, list(file_dt) )
 
@@ -184,7 +189,7 @@ search_r_files <- function(find = NULL, ext = "R", r_root =  NULL,
                           args = list(file_txt) )
 
 
-      res_txt <- paste0(fok, sep = "\n")
+      res_txt <- paste0("[",line, "] ", fok, sep = "\n")
       res_txt <- do.call(eval(parse(text= results_col)), list(res_txt) )
       res_txt <- do.call(eval(parse(text= txt_italic)), list(res_txt) )
 
